@@ -4,7 +4,8 @@ export async function handler(event) {
     statusCode: 200,
     body: JSON.stringify({
       version: Deno.version,
-      build: Deno.build
+      build: Deno.build,
+      event: event,
     })
   };
 }

@@ -1,15 +1,14 @@
-
-#!/bin/sh
+#!/bin/bash
 set -euo pipefail
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 HANDLER_NAME=$(echo "$_HANDLER" | cut -d. -f2)
 HANDLER_FILE=$(echo "$_HANDLER" | cut -d. -f1)
+HANDLER_PATH=$(realpath $LAMBDA_TASK_ROOT/$HANDLER_FILE.ts)
 
 echo "
-import { $HANDLER_NAME } from '$LAMBDA_TASK_ROOT/$HANDLER_FILE.ts';
+import { $HANDLER_NAME } from '$HANDLER_PATH';
 const API_ROOT = 'http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/';
-console.log(API_ROOT);
 (async () => {
 	while (true) {
 		const next = await fetch(API_ROOT + 'next');
@@ -26,4 +25,4 @@ console.log(API_ROOT);
 })();
 " > /tmp/runtime.ts
 #DENO_DIR=/tmp/deno_dir $SCRIPT_DIR/deno run --allow-net --allow-read /tmp/runtime.ts
-DENO_DIR=/tmp/deno_dir deno run --config tsconfig.json --allow-net --allow-read /tmp/runtime.ts
+DENO_DIR=/tmp/deno_dir deno run --config $SCRIPT_DIR/tsconfig.json --allow-net --allow-read /tmp/runtime.ts
