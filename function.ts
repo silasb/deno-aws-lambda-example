@@ -1,5 +1,5 @@
 
-export async function handler(event) {
+export async function handler1(event) {
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -8,5 +8,19 @@ export async function handler(event) {
       event: event,
     })
   };
+}
+
+export async function handler2(event) {
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      hello: "world",
+    })
+  };
+}
+
+
+export async function handler3(event) {
+  return "hello world";
 }
 
