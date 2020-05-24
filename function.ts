@@ -24,3 +24,15 @@ export async function handler3(event) {
   return "hello world";
 }
 
+export function handler4(event) {
+  return new Promise((resolve, reject) =>
+    setTimeout(
+      () => resolve({
+        statusCode: 200,
+        body: JSON.stringify({
+          timeout: '?'
+        })
+      }), 15000)
+  )
+}
+
