@@ -3,7 +3,7 @@
 Just some experiements with Deno.
 
 ```
-LAMBDA_TASK_ROOT=$PWD _HANDLER="function.handler" AWS_LAMBDA_RUNTIME_API=127.0.0.1:8081 ./bootstrap 
+LAMBDA_TASK_ROOT=$PWD _HANDLER="function.handler1" AWS_LAMBDA_RUNTIME_API=127.0.0.1:8081 ./bootstrap
 zip function.zip function.ts bootstrap tsconfig.json
 ```
 
